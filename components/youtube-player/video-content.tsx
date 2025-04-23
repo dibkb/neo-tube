@@ -41,5 +41,6 @@ export const VideoContent = ({ data, responseTime }: VideoContentProps) => {
       <Description text={data?.snippet.description || ""} />
     </article>
   );
-  return content;
+
+  return <section className="flex flex-col gap-4">{content}</section>;
 };
