@@ -2,7 +2,9 @@ import Account from "@/components/svg/account";
 import CalenderIcon from "@/components/svg/calender";
 import EyeIcon from "@/components/svg/eye";
 import LikeIcon from "@/components/svg/like";
+import Description from "@/components/youtube-player/description";
 import Player from "@/components/youtube-player/player";
+import VideoDetails from "@/components/youtube-player/video-details";
 import api from "@/lib/base-url";
 import { youtubeVideoSchema } from "@/lib/schemas/youtubeVideo";
 import React from "react";
@@ -23,6 +25,7 @@ export default async function VideoPage({
 
   try {
     const response = await api.get(`/videos/info/${videoid}`);
+    console.log(response.data);
     data = youtubeVideoSchema.parse(response.data);
     // Calculate response time
     responseTime = Date.now() - startTime;
@@ -34,7 +37,7 @@ export default async function VideoPage({
   const content = (
     <div>
       <div className="text-xs text-neutral-500 mt-2 font-medium">
-        Response time: {responseTime}ms
+        ⚡️ Response time: {responseTime}ms
       </div>
       <div className="text-lg text-neutral-700 mt-1 font-semibold">
         {data?.snippet.title}
@@ -67,6 +70,8 @@ export default async function VideoPage({
           </span>
         </div>
       </section>
+      <VideoDetails categoryId={Number(data?.snippet.categoryId)} />
+      <Description text={data?.snippet.description || ""} />
     </div>
   );
 
