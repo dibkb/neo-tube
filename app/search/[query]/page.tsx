@@ -29,7 +29,7 @@ export default async function SearchPage({
     return (
       <section className="my-4">
         <h3 className="font-semibold text-center mb-4 text-blue-600">
-          Showing results for &quot;{query}&quot;
+          Showing results for &quot;{decodeURIComponent(query)}&quot;
         </h3>
         <div className="flex flex-col gap-4">{content}</div>
       </section>
