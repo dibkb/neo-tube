@@ -30,7 +30,7 @@ const snippetSchema = z.object({
   description: z.string(),
   thumbnails: thumbnailsSchema,
   channelTitle: z.string(),
-  tags: z.array(z.string()),
+  tags: z.array(z.string()).optional(),
   categoryId: z.string(),
   liveBroadcastContent: z.string(),
   defaultLanguage: z.string().optional(),
