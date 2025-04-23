@@ -26,7 +26,14 @@ export default async function SearchPage({
       return null;
     });
 
-    return <div className="flex flex-col gap-4">{content}</div>;
+    return (
+      <section className="my-4">
+        <h3 className="font-semibold text-center mb-4 text-blue-600">
+          Showing results for &quot;{query}&quot;
+        </h3>
+        <div className="flex flex-col gap-4">{content}</div>
+      </section>
+    );
   } catch {
     return (
       <div className="p-4 text-center flex flex-col gap-2">
