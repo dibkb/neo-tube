@@ -40,17 +40,18 @@ const SingleComment = ({ comment }: { comment: CommentThread }) => {
                 comment.snippet.topLevelComment.snippet.publishedAt
               ).toLocaleDateString()}
             </p>
+            <Label type={comment.snippet.topLevelComment.snippet.sentiment} />
           </div>
-          <p className="font-medium">
+          <p className="font-medium my-1">
             {comment.snippet.topLevelComment.snippet.textDisplay}
           </p>
           <div className="flex items-center gap-2 mt-2">
             <span className="flex items-center gap-1 text-xs">
-              <LikeIcon className="w-4 h-4" />
+              <LikeIcon className="w-4 h-4 text-neutral-500" />
               <p>{comment.snippet.topLevelComment.snippet.likeCount}</p>
             </span>
             <span className="flex items-center gap-1 text-xs">
-              <ReplyIcon className="w-4 h-4" />
+              <ReplyIcon className="w-4 h-4 text-neutral-500" />
               <p>{comment.snippet.totalReplyCount}</p>
             </span>
           </div>
@@ -58,4 +59,31 @@ const SingleComment = ({ comment }: { comment: CommentThread }) => {
       </div>
     </div>
   );
+};
+
+const Label = ({
+  type,
+}: {
+  type: CommentThread["snippet"]["topLevelComment"]["snippet"]["sentiment"];
+}) => {
+  switch (type) {
+    case "positive":
+      return (
+        <p className="text-xs text-green-600 font-semibold bg-green-500/10 px-4 py-1 rounded-full">
+          Positive
+        </p>
+      );
+    case "negative":
+      return (
+        <p className="text-xs text-red-600 font-semibold bg-red-500/10 px-4 py-1 rounded-full">
+          Negative
+        </p>
+      );
+    case "neutral":
+      return (
+        <p className="text-xs text-amber-600 font-semibold bg-amber-500/10 px-2 py-1 rounded-full">
+          Neutral
+        </p>
+      );
+  }
 };
