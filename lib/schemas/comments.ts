@@ -24,7 +24,7 @@ const commentSchema = z.object({
     likeCount: z.number(),
     publishedAt: z.string(),
     updatedAt: z.string(),
-    sentiment: z.enum(["positive", "negative", "neutral"]).optional(),
+    sentiment: z.enum(["positive", "negative", "neutral"]),
   }),
 });
 

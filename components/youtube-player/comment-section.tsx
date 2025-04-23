@@ -3,17 +3,24 @@ import {
   CommentThreadListResponse,
   CommentThread,
 } from "@/lib/schemas/comments";
-import React from "react";
+import React, { useMemo } from "react";
 import LikeIcon from "../svg/like";
 import { ReplyIcon } from "lucide-react";
+import { calculateSentiment } from "@/lib/count-sentiments";
+import SentimentBar from "./sentiment-bar";
 
 export const CommentSection = ({
   commentData,
 }: {
   commentData: CommentThreadListResponse;
 }) => {
+  const sentimentCounts = useMemo(
+    () => calculateSentiment(commentData.items),
+    [commentData.items]
+  );
   return (
     <div className="flex flex-col gap-6">
+      <SentimentBar {...sentimentCounts} />
       {commentData.items.map((item) => (
         <SingleComment key={item.id} comment={item} />
       ))}
