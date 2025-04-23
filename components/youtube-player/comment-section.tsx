@@ -24,7 +24,7 @@ export const CommentSection = ({
 const SingleComment = ({ comment }: { comment: CommentThread }) => {
   return (
     <div className="flex flex-col gap-2">
-      <div className="flex items-center gap-2">
+      <div className="flex items-start gap-2">
         <img
           src={comment.snippet.topLevelComment.snippet.authorProfileImageUrl}
           alt="avatar"
@@ -41,10 +41,10 @@ const SingleComment = ({ comment }: { comment: CommentThread }) => {
               ).toLocaleDateString()}
             </p>
           </div>
-          <p className="text-sm font-medium">
+          <p className="font-medium">
             {comment.snippet.topLevelComment.snippet.textDisplay}
           </p>
-          <div className="flex items-center gap-2">
+          <div className="flex items-center gap-2 mt-2">
             <span className="flex items-center gap-1 text-xs">
               <LikeIcon className="w-4 h-4" />
               <p>{comment.snippet.topLevelComment.snippet.likeCount}</p>
