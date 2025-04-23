@@ -3,10 +3,14 @@ import { YoutubeSearchResult } from "@/lib/schemas/youtubeSearch";
 import React from "react";
 import Account from "../svg/account";
 import Time from "../svg/time";
+import Link from "next/link";
 
 const ThumbnailSearch = ({ item }: { item: YoutubeSearchResult }) => {
   return (
-    <div className="flex gap-4 p-2 rounded-xl hover:bg-neutral-200 cursor-pointer transition-all duration-300">
+    <Link
+      href={`/video/${item.id.videoId}`}
+      className="flex gap-4 p-2 rounded-xl hover:bg-neutral-200 cursor-pointer transition-all duration-300"
+    >
       <img
         src={item.snippet.thumbnails.medium.url}
         alt={item.snippet.title}
@@ -32,7 +36,7 @@ const ThumbnailSearch = ({ item }: { item: YoutubeSearchResult }) => {
           </p>
         </div>
       </div>
-    </div>
+    </Link>
   );
 };
 

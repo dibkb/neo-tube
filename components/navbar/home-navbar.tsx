@@ -35,7 +35,7 @@ const HomeNavbar = () => {
   );
 
   return (
-    <header className="border-b border-border py-4 fixed top-0 left-0 right-0 bg-background z-50 h-16">
+    <header className="border-b border-border py-4 fixed top-0 left-0 right-0 z-50 h-16 backdrop-blur-2xl bg-background/50">
       <div className="mx-auto container flex items-center justify-between">
         <Link
           href="/"
