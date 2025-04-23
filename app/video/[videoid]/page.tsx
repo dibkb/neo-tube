@@ -25,7 +25,6 @@ export default async function VideoPage({
 
   try {
     const response = await api.get(`/videos/info/${videoid}`);
-    console.log(response.data);
     data = youtubeVideoSchema.parse(response.data);
     // Calculate response time
     responseTime = Date.now() - startTime;
@@ -34,62 +33,82 @@ export default async function VideoPage({
   } finally {
     isLoading = false;
   }
+
   const content = (
-    <div>
-      <div className="text-xs text-neutral-500 mt-2 font-medium">
+    <article className="video-content">
+      <div
+        aria-label="Performance metrics"
+        className="text-xs text-neutral-500 mt-2 font-medium"
+      >
         ⚡️ Response time: {responseTime}ms
       </div>
-      <div className="text-lg text-neutral-700 mt-1 font-semibold">
+
+      <h1 className="text-lg text-neutral-700 mt-1 font-semibold">
         {data?.snippet.title}
-      </div>
-      <section className="flex items-center justify-between gap-2 mt-2">
-        <div className="flex items-center gap-2">
-          <Account className="w-8 h-8 text-neutral-400" />
-          <p className="text-sm text-neutral-700 font-semibold">
+      </h1>
+
+      <section className="video-metadata flex items-center justify-between gap-2 mt-2">
+        <div className="channel-info flex items-center gap-2">
+          <Account className="w-8 h-8 text-neutral-400" aria-hidden="true" />
+          <h2 className="text-sm text-neutral-700 font-semibold">
             {data?.snippet.channelTitle}
-          </p>
+          </h2>
         </div>
-        <div className="flex items-center gap-4">
-          <span className="flex items-center gap-1">
-            <CalenderIcon className="w-4 h-4 text-neutral-400" />
-            <p className="text-xs text-neutral-700 font-semibold">
+
+        <ul className="video-stats flex items-center gap-4 list-none">
+          <li className="flex items-center gap-1">
+            <CalenderIcon
+              className="w-4 h-4 text-neutral-400"
+              aria-hidden="true"
+            />
+            <time
+              className="text-xs text-neutral-700 font-semibold"
+              dateTime={data?.snippet?.publishedAt}
+            >
               {new Date(data?.snippet?.publishedAt || "").toLocaleDateString()}
-            </p>
-          </span>
-          <span className="flex items-center gap-1">
-            <EyeIcon className="w-4 h-4 text-neutral-400" />
-            <p className="text-xs text-neutral-700 font-semibold">
+            </time>
+          </li>
+          <li className="flex items-center gap-1">
+            <EyeIcon className="w-4 h-4 text-neutral-400" aria-hidden="true" />
+            <span className="text-xs text-neutral-700 font-semibold">
+              <span className="sr-only">Views: </span>
               {Number(data?.statistics.viewCount).toLocaleString()}
-            </p>
-          </span>
-          <span className="flex items-center gap-1">
-            <LikeIcon className="w-4 h-4 text-neutral-400" />
-            <p className="text-xs text-neutral-700 font-semibold">
+            </span>
+          </li>
+          <li className="flex items-center gap-1">
+            <LikeIcon className="w-4 h-4 text-neutral-400" aria-hidden="true" />
+            <span className="text-xs text-neutral-700 font-semibold">
+              <span className="sr-only">Likes: </span>
               {Number(data?.statistics.likeCount).toLocaleString()}
-            </p>
-          </span>
-        </div>
+            </span>
+          </li>
+        </ul>
       </section>
+
       <VideoDetails categoryId={Number(data?.snippet.categoryId)} />
       <Description text={data?.snippet.description || ""} />
-    </div>
+    </article>
   );
 
   return (
-    <div className="w-full h-full grid grid-cols-12 gap-4">
-      <div className="col-span-12 md:col-span-9">
+    <main className="w-full h-full grid grid-cols-12 gap-4">
+      <section className="video-primary-content col-span-12 md:col-span-9">
         <Player videoId={videoid} />
         {isLoading ? (
-          <div className="mt-4 p-4 rounded bg-gray-100 animate-pulse">
-            Loading video data...
+          <div
+            role="status"
+            className="mt-4 p-4 rounded bg-gray-100 animate-pulse"
+          >
+            <span>Loading video data...</span>
           </div>
         ) : (
           content
         )}
-      </div>
-      <div className="col-span-12 md:col-span-3">
-        <h1>Hello</h1>
-      </div>
-    </div>
+      </section>
+      <aside className="video-secondary-content col-span-12 md:col-span-3">
+        <h2 className="text-lg font-semibold mb-4">Related Videos</h2>
+        {/* Related videos content would go here */}
+      </aside>
+    </main>
   );
 }

@@ -6,6 +6,8 @@ import { Input } from "../ui/input";
 import { Avatar, AvatarFallback, AvatarImage } from "../ui/avatar";
 import { X } from "lucide-react";
 import { useRouter } from "next/navigation";
+import { cn } from "@/lib/utils";
+import { heading } from "@/lib/fonts";
 
 const HomeNavbar = () => {
   const [searchQuery, setSearchQuery] = useState("");
@@ -35,7 +37,7 @@ const HomeNavbar = () => {
   );
 
   return (
-    <header className="border-b border-border py-4 fixed top-0 left-0 right-0 z-50 h-16 backdrop-blur-2xl bg-background/50">
+    <header className="border-b border-border py-4 fixed top-0 left-0 right-0 z-50 h-16 backdrop-blur-3xl bg-neutral-100/50">
       <div className="mx-auto container flex items-center justify-between">
         <Link
           href="/"
@@ -43,7 +45,14 @@ const HomeNavbar = () => {
           aria-label="NeoTube Home"
         >
           <YoutubeIcon />
-          <span className="logo-font text-lg">NeoTube</span>
+          <span
+            className={cn(
+              "text-lg font-medium text-stone-700",
+              heading.className
+            )}
+          >
+            NeoTube
+          </span>
         </Link>
 
         <form
