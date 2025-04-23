@@ -72,9 +72,9 @@ const HomeNavbar = () => {
               value={searchQuery}
               onChange={handleSearchChange}
               className="w-full max-w-md focus-visible:ring-0 rounded-xl font-semibold px-4 py-2 h-9 input-field selection:bg-blue-200 selection:text-blue-700"
-              placeholder="Search"
+              placeholder="Enter search query, video url, or video id"
               type="video-search"
-              aria-label="Search videos"
+              aria-label="Enter search query, video url, or video id"
             />
             {searchQuery.length > 0 && (
               <button
