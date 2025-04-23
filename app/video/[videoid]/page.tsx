@@ -17,13 +17,7 @@ export default async function VideoPage({
   params: { videoid: string };
 }) {
   const { videoid } = params;
-
-  // Start timer for API request
-  const startTime = Date.now();
-
-  let isLoading = true;
   let data: YoutubeVideo | null = null;
-  let responseTime = 0;
   let commentData: CommentThreadListResponse | null = null;
   try {
     const [videoResponse, commentResponse] = await Promise.all([
@@ -33,11 +27,8 @@ export default async function VideoPage({
     commentData = commentThreadListResponseSchema.parse(commentResponse.data);
     data = youtubeVideoSchema.parse(videoResponse.data);
     // Calculate response time
-    responseTime = Date.now() - startTime;
   } catch (error) {
     console.error("Error fetching video data:", error);
-  } finally {
-    isLoading = false;
   }
   const comentSection = (
     <section className="flex flex-col gap-4">
@@ -52,19 +43,11 @@ export default async function VideoPage({
     <main className="w-full h-full grid grid-cols-12 gap-4">
       <section className="video-primary-content col-span-12 md:col-span-9">
         <Player videoId={videoid} />
-        {isLoading ? (
-          <div
-            role="status"
-            className="mt-4 p-4 rounded bg-gray-100 animate-pulse"
-          >
-            <span>Loading video data...</span>
-          </div>
-        ) : (
-          <section className="flex flex-col gap-4">
-            {data && <VideoContent data={data} responseTime={responseTime} />}
-            {comentSection}
-          </section>
-        )}
+
+        <section className="flex flex-col gap-4">
+          {data && <VideoContent data={data} />}
+          {comentSection}
+        </section>
       </section>
       <aside className="video-secondary-content col-span-12 md:col-span-3">
         <h2 className="mb-4">XYZ</h2>

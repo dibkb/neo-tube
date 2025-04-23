@@ -7,18 +7,10 @@ import { YoutubeVideo } from "@/lib/schemas/youtubeVideo";
 
 interface VideoContentProps {
   data: YoutubeVideo;
-  responseTime: number;
 }
-export const VideoContent = ({ data, responseTime }: VideoContentProps) => {
+export const VideoContent = ({ data }: VideoContentProps) => {
   const content = (
-    <article className="video-content">
-      <div
-        aria-label="Performance metrics"
-        className="text-xs text-neutral-500 mt-2 font-medium"
-      >
-        ⚡️ Response time: {responseTime}ms
-      </div>
-
+    <article className="">
       <h1 className="text-lg text-neutral-700 mt-1 font-semibold">
         {data?.snippet.title}
       </h1>

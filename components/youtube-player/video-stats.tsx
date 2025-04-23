@@ -29,7 +29,7 @@ const VideoStats = ({ publishedAt, viewCount, likeCount }: VideoStatsProps) => {
         </span>
       </li>
       <li className="flex items-center gap-1">
-        <LikeIcon className="w-4 h-4 text-neutral-400" aria-hidden="true" />
+        <LikeIcon className="w-4 h-4 text-red-500" aria-hidden="true" />
         <span className="text-xs text-neutral-700 font-semibold">
           <span className="sr-only">Likes: </span>
           {Number(likeCount).toLocaleString()}
