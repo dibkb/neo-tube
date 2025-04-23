@@ -1,23 +1,26 @@
 "use client";
 /* eslint-disable @next/next/no-img-element */
 import { YoutubeSearchResult } from "@/lib/schemas/youtubeSearch";
-import React, { useState } from "react";
+import React, { useTransition } from "react";
 import Account from "../svg/account";
 import Time from "../svg/time";
 import { useRouter } from "next/navigation";
 import LoadingOverlay from "../overlay/loading";
+
 const ThumbnailSearch = ({ item }: { item: YoutubeSearchResult }) => {
   const router = useRouter();
-  const [isLoading, setIsLoading] = useState(false);
-  if (isLoading) {
-    return <LoadingOverlay isLoading={isLoading} />;
+  const [isPending, startTransition] = useTransition();
+
+  if (isPending) {
+    return <LoadingOverlay isLoading={true} />;
   }
+
   return (
     <div
       onClick={() => {
-        setIsLoading(true);
-        router.push(`/video/${item.id.videoId}`);
-        setIsLoading(false);
+        startTransition(() => {
+          router.push(`/video/${item.id.videoId}`);
+        });
       }}
       className="flex gap-4 p-2 rounded-xl hover:bg-neutral-200 cursor-pointer transition-all duration-300"
     >

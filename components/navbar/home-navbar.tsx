@@ -1,6 +1,6 @@
 "use client";
 import Link from "next/link";
-import React, { useCallback, useState } from "react";
+import React, { useCallback, useState, useTransition } from "react";
 import YoutubeIcon from "../svg/youtube";
 import { Input } from "../ui/input";
 import { Avatar, AvatarFallback, AvatarImage } from "../ui/avatar";
@@ -13,7 +13,7 @@ import LoadingOverlay from "../overlay/loading";
 const HomeNavbar = () => {
   const [searchQuery, setSearchQuery] = useState("");
   const router = useRouter();
-  const [isLoading, setIsLoading] = useState(false);
+  const [isPending, startTransition] = useTransition();
   const handleCrossClick = useCallback(
     async (e: React.MouseEvent<HTMLButtonElement>) => {
       e.preventDefault();
@@ -32,14 +32,15 @@ const HomeNavbar = () => {
   const handleSearchSubmit = useCallback(
     async (e: React.FormEvent<HTMLFormElement>) => {
       e.preventDefault();
-      setIsLoading(true);
-      router.push(`/search/${searchQuery}`);
-      setIsLoading(false);
+      startTransition(() => {
+        router.push(`/search/${searchQuery}`);
+      });
     },
     [searchQuery, router]
   );
-  if (isLoading) {
-    return <LoadingOverlay isLoading={isLoading} />;
+
+  if (isPending) {
+    return <LoadingOverlay isLoading={true} />;
   }
   return (
     <>
