@@ -1,13 +1,16 @@
 "use client";
 import Link from "next/link";
-import React from "react";
+import React, { useState } from "react";
 import YoutubeIcon from "../svg/youtube";
 import { Input } from "../ui/input";
 import { Avatar, AvatarFallback, AvatarImage } from "../ui/avatar";
 import { X } from "lucide-react";
+import { cn } from "@/lib/utils";
 const HomeNavbar = () => {
+  const [searchQuery, setSearchQuery] = useState("");
   const handleCrossClick = (e: React.MouseEvent<HTMLButtonElement>) => {
     e.preventDefault();
+    setSearchQuery("");
   };
   return (
     <nav className="border-b border-border py-4">
@@ -18,12 +21,17 @@ const HomeNavbar = () => {
         </Link>
         <form className="w-full max-w-md flex items-center relative">
           <Input
+            value={searchQuery}
+            onChange={(e) => setSearchQuery(e.target.value)}
             className="w-full max-w-md focus-visible:ring-0 rounded-xl font-semibold px-4 py-2 h-9 input-field selection:bg-blue-200 selection:text-blue-700"
             placeholder="Search"
             type="video-search"
           />
           <button
-            className="absolute right-2 flex items-center justify-center bg-background rounded-xl text-muted-foreground hover:text-foreground transition-colors"
+            className={cn(
+              "absolute right-2 flex items-center justify-center bg-background rounded-xl text-muted-foreground hover:text-foreground transition-colors",
+              searchQuery.length === 0 && "opacity-0"
+            )}
             onClick={handleCrossClick}
           >
             <X className="w-4 h-4" />
