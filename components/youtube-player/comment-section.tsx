@@ -19,7 +19,7 @@ export const CommentSection = ({
     [commentData.items]
   );
   return (
-    <div className="flex flex-col gap-6">
+    <div className="flex flex-col gap-6 mb-4">
       <SentimentBar {...sentimentCounts} />
       {commentData.items.map((item) => (
         <SingleComment key={item.id} comment={item} />

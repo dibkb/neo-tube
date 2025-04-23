@@ -1,14 +1,24 @@
+"use client";
 /* eslint-disable @next/next/no-img-element */
 import { YoutubeSearchResult } from "@/lib/schemas/youtubeSearch";
-import React from "react";
+import React, { useState } from "react";
 import Account from "../svg/account";
 import Time from "../svg/time";
-import Link from "next/link";
-
+import { useRouter } from "next/navigation";
+import LoadingOverlay from "../overlay/loading";
 const ThumbnailSearch = ({ item }: { item: YoutubeSearchResult }) => {
+  const router = useRouter();
+  const [isLoading, setIsLoading] = useState(false);
+  if (isLoading) {
+    return <LoadingOverlay isLoading={isLoading} />;
+  }
   return (
-    <Link
-      href={`/video/${item.id.videoId}`}
+    <div
+      onClick={() => {
+        setIsLoading(true);
+        router.push(`/video/${item.id.videoId}`);
+        setIsLoading(false);
+      }}
       className="flex gap-4 p-2 rounded-xl hover:bg-neutral-200 cursor-pointer transition-all duration-300"
     >
       <img
@@ -36,7 +46,7 @@ const ThumbnailSearch = ({ item }: { item: YoutubeSearchResult }) => {
           </p>
         </div>
       </div>
-    </Link>
+    </div>
   );
 };
 
