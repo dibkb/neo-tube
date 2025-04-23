@@ -8,7 +8,7 @@ import LikeIcon from "../svg/like";
 import { ReplyIcon } from "lucide-react";
 import { calculateSentiment } from "@/lib/count-sentiments";
 import SentimentBar from "./sentiment-bar";
-
+import Markdown from "react-markdown";
 export const CommentSection = ({
   commentData,
 }: {
@@ -38,7 +38,7 @@ const SingleComment = ({ comment }: { comment: CommentThread }) => {
           className="w-10 h-10 rounded-full"
         />
         <div className="flex flex-col">
-          <div className="flex items-center gap-2">
+          <div className="flex items-center gap-2 mb-2">
             <h3 className="text-sm font-medium">
               {comment.snippet.topLevelComment.snippet.authorDisplayName}
             </h3>
@@ -49,9 +49,10 @@ const SingleComment = ({ comment }: { comment: CommentThread }) => {
             </p>
             <Label type={comment.snippet.topLevelComment.snippet.sentiment} />
           </div>
-          <p className="font-medium my-1">
+
+          <Markdown>
             {comment.snippet.topLevelComment.snippet.textDisplay}
-          </p>
+          </Markdown>
           <div className="flex items-center gap-2 mt-2">
             <span className="flex items-center gap-1 text-xs">
               <LikeIcon className="w-4 h-4 text-neutral-500" />
@@ -88,7 +89,7 @@ const Label = ({
       );
     case "neutral":
       return (
-        <p className="text-xs text-amber-600 font-semibold bg-amber-500/10 px-2 py-1 rounded-full">
+        <p className="text-xs text-amber-600 font-semibold bg-amber-500/10 px-4 py-1 rounded-full">
           Neutral
         </p>
       );
