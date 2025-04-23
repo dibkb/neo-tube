@@ -10,7 +10,7 @@ export default async function SearchPage({
 }) {
   const { query } = params;
   try {
-    const response = await api.post(`/search-videos?query=${query}`);
+    const response = await api.post(`/videos/search?query=${query}`);
     const result = response.data;
 
     const content = result.map((item: unknown) => {
