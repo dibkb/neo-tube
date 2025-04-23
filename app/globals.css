@@ -128,10 +128,7 @@
   .logo-font {
     font-family: "Special Gothic Condensed One", sans-serif;
   }
-  .input-field::selection {
-    background-color: red;
-  }
-  .input-field::-moz-selection {
-    background: #f7a494;
+  iframe {
+    border-radius: var(--radius-xl);
   }
 }
