@@ -1,27 +1,37 @@
 "use client";
 import Link from "next/link";
-import React, { useState, useCallback } from "react";
+import React, { useCallback } from "react";
 import YoutubeIcon from "../svg/youtube";
 import { Input } from "../ui/input";
 import { Avatar, AvatarFallback, AvatarImage } from "../ui/avatar";
 import { X } from "lucide-react";
+import { useFetchSearchQuery } from "@/hooks/useSearchQuery";
 
 const HomeNavbar = () => {
-  const [searchQuery, setSearchQuery] = useState("");
+  const { searchQuery, setSearchQuery, fetchSearchQuery } =
+    useFetchSearchQuery();
 
   const handleCrossClick = useCallback(
-    (e: React.MouseEvent<HTMLButtonElement>) => {
+    async (e: React.MouseEvent<HTMLButtonElement>) => {
       e.preventDefault();
       setSearchQuery("");
     },
-    []
+    [setSearchQuery]
   );
 
   const handleSearchChange = useCallback(
     (e: React.ChangeEvent<HTMLInputElement>) => {
       setSearchQuery(e.target.value);
     },
-    []
+    [setSearchQuery]
+  );
+
+  const handleSearchSubmit = useCallback(
+    async (e: React.FormEvent<HTMLFormElement>) => {
+      e.preventDefault();
+      await fetchSearchQuery();
+    },
+    [fetchSearchQuery]
   );
 
   return (
@@ -40,6 +50,7 @@ const HomeNavbar = () => {
           className="w-full max-w-md flex items-center relative"
           role="search"
           aria-label="Search videos"
+          onSubmit={handleSearchSubmit}
         >
           <Input
             value={searchQuery}
