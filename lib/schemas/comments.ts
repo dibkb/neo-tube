@@ -41,6 +41,9 @@ const commentThreadSchema = z.object({
     totalReplyCount: z.number(),
     isPublic: z.boolean(),
   }),
+  canReply: z.boolean().optional(),
+  totalReplyCount: z.number().optional(),
+  isPublic: z.boolean().optional(),
 });
 
 // Schema for the page info
