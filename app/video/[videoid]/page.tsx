@@ -2,7 +2,7 @@ import ChatWindow from "@/components/chat/chat-window";
 import { CommentSection } from "@/components/youtube-player/comment-section";
 import Player from "@/components/youtube-player/player";
 import { VideoContent } from "@/components/youtube-player/video-content";
-import api from "@/lib/base-url";
+import { api } from "@/lib/base-url";
 import { heading } from "@/lib/fonts";
 import {
   CommentThreadListResponse,
@@ -27,6 +27,7 @@ export default async function VideoPage({
     ]);
     commentData = commentThreadListResponseSchema.parse(commentResponse.data);
     data = youtubeVideoSchema.parse(videoResponse.data);
+
     // Calculate response time
   } catch (error) {
     console.error("Error fetching video data:", error);
@@ -51,7 +52,7 @@ export default async function VideoPage({
         </section>
       </section>
       <aside className="video-secondary-content col-span-12 md:col-span-3 relative w-full h-full">
-        <ChatWindow />
+        <ChatWindow videoId={videoid} />
       </aside>
     </main>
   );

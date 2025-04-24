@@ -7,4 +7,8 @@ const api = axios.create({
   baseURL: process.env.NEXT_PUBLIC_API_URL,
 });
 
-export default api;
+const chatApi = axios.create({
+  baseURL: process.env.NEXT_PUBLIC_CHAT_API_URL,
+});
+
+export { api, chatApi };
