@@ -42,6 +42,8 @@ const HomeNavbar = () => {
         } else {
           router.push(`/search/${searchQuery}`);
         }
+
+        setSearchQuery("");
       });
     },
     [searchQuery, router]
@@ -66,7 +68,7 @@ const HomeNavbar = () => {
                 heading.className
               )}
             >
-              NeoTube
+              BroTube
             </span>
           </Link>
 

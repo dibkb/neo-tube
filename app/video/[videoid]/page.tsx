@@ -1,3 +1,4 @@
+import ChatWindow from "@/components/chat/chat-window";
 import { CommentSection } from "@/components/youtube-player/comment-section";
 import Player from "@/components/youtube-player/player";
 import { VideoContent } from "@/components/youtube-player/video-content";
@@ -16,7 +17,7 @@ export default async function VideoPage({
 }: {
   params: { videoid: string };
 }) {
-  const { videoid } = params;
+  const { videoid } = await params;
   let data: YoutubeVideo | null = null;
   let commentData: CommentThreadListResponse | null = null;
   try {
@@ -49,9 +50,8 @@ export default async function VideoPage({
           {comentSection}
         </section>
       </section>
-      <aside className="video-secondary-content col-span-12 md:col-span-3">
-        <h2 className="mb-4">XYZ</h2>
-        {/* Related videos content would go here */}
+      <aside className="video-secondary-content col-span-12 md:col-span-3 relative w-full h-full">
+        <ChatWindow />
       </aside>
     </main>
   );
