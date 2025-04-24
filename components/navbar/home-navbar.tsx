@@ -9,6 +9,8 @@ import { useRouter } from "next/navigation";
 import { cn } from "@/lib/utils";
 import { heading } from "@/lib/fonts";
 import LoadingOverlay from "../overlay/loading";
+import { isYouTubeLink } from "@/lib/regx";
+import { getYouTubeVideoId } from "@/lib/regx";
 
 const HomeNavbar = () => {
   const [searchQuery, setSearchQuery] = useState("");
@@ -33,7 +35,13 @@ const HomeNavbar = () => {
     async (e: React.FormEvent<HTMLFormElement>) => {
       e.preventDefault();
       startTransition(() => {
-        router.push(`/search/${searchQuery}`);
+        // if the search query is a youtube link, get the video id and push to the search page
+        if (isYouTubeLink(searchQuery)) {
+          const videoId = getYouTubeVideoId(searchQuery);
+          router.push(`/video/${videoId}`);
+        } else {
+          router.push(`/search/${searchQuery}`);
+        }
       });
     },
     [searchQuery, router]
