@@ -1,6 +1,6 @@
 import ThumbnailSearch from "@/components/search/thumbnail";
 import WarningIcon from "@/components/svg/warning-icon";
-import api from "@/lib/base-url";
+import { api } from "@/lib/base-url";
 import { youtubeSearchResultSchema } from "@/lib/schemas/youtubeSearch";
 
 export default async function SearchPage({

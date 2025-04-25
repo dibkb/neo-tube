@@ -1,4 +1,5 @@
 import ChatWindow from "@/components/chat/chat-window";
+import RelatedVideos from "@/components/search/realated-videos";
 import { CommentSection } from "@/components/youtube-player/comment-section";
 import Player from "@/components/youtube-player/player";
 import { VideoContent } from "@/components/youtube-player/video-content";
@@ -53,6 +54,7 @@ export default async function VideoPage({
       </section>
       <aside className="video-secondary-content col-span-12 md:col-span-4 relative w-full h-full">
         <ChatWindow videoId={videoid} />
+        <RelatedVideos videoId={videoid} />
       </aside>
     </main>
   );
