@@ -4,6 +4,7 @@ import VideoDetails from "./video-details";
 import Description from "./description";
 import Account from "../svg/account";
 import { YoutubeVideo } from "@/lib/schemas/youtubeVideo";
+import Tags from "./tags";
 
 interface VideoContentProps {
   data: YoutubeVideo;
@@ -31,6 +32,7 @@ export const VideoContent = ({ data }: VideoContentProps) => {
 
       <VideoDetails categoryId={Number(data?.snippet.categoryId)} />
       <Description text={data?.snippet.description || ""} />
+      <Tags tags={data?.snippet.tags || []} />
     </article>
   );
 

@@ -70,8 +70,8 @@ const Transcript = ({
                 &quot;{activeItem?.text}&quot;
               </p>
             ) : (
-              <p className="text-sm font-semibold italic">
-                👑 Our Lordship has fetched the transcript just for you{" "}
+              <p className="text-sm font-semibold">
+                👑 Our Lordship has prepared the live transcript just for you{" "}
               </p>
             )}
             <span className="text-xs">
