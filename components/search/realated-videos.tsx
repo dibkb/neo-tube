@@ -1,18 +1,19 @@
+/* eslint-disable @next/next/no-img-element */
 "use client";
 import { api } from "@/lib/base-url";
 import { heading } from "@/lib/fonts";
 import {
   YoutubeSearchResult,
-  youtubeSearchResultSchema,
+  youtubeSearchResultsSchema,
 } from "@/lib/schemas/youtubeSearch";
 import { cn } from "@/lib/utils";
-import { isAxiosError } from "axios";
 import React, { useEffect, useState } from "react";
 import ThumbnailSearch from "./thumbnail";
+import { CircleAlert, Loader2 } from "lucide-react";
 const RelatedVideos = ({ videoId }: { videoId: string }) => {
   const [loading, setLoading] = useState(true);
   const [videos, setVideos] = useState<YoutubeSearchResult[]>([]);
-  const [error, setError] = useState(null);
+  const [error, setError] = useState<string | null>(null);
 
   useEffect(() => {
     (async () => {
@@ -25,35 +26,52 @@ const RelatedVideos = ({ videoId }: { videoId: string }) => {
           },
         });
         const data = await response.data;
-        const content = data.map((item: unknown) => {
-          const etag = (item as { etag?: string })?.etag;
-          if (etag) {
-            if (youtubeSearchResultSchema.safeParse(item).success) {
-              const parsedItem = youtubeSearchResultSchema.parse(item);
-              return parsedItem;
-            }
-          }
-        });
-        setVideos(content);
-      } catch (error) {
-        if (isAxiosError(error)) {
-          setError(error.response?.data);
+        if (data && youtubeSearchResultsSchema.safeParse(data).success) {
+          setVideos(data);
+        } else {
+          setError("Invalid data");
         }
+      } catch {
+        setError("An unexpected error occurred");
       } finally {
         setLoading(false);
       }
     })();
   }, [videoId]);
+  let content = null;
+  if (loading) {
+    content = (
+      <div>
+        <Loader2 />
+      </div>
+    );
+  } else if (error) {
+    content = (
+      <div className="flex flex-col items-center gap-2 mt-4">
+        <p className="text-neutral-700 font-semibold flex items-center gap-2">
+          <CircleAlert className="w-4 h-4" /> {error}
+        </p>
+        <img
+          src={
+            "https://media1.tenor.com/m/3TSzTuVEIEAAAAAC/quantum-society-quantum-utilities.gif"
+          }
+          alt=""
+          className="w-full"
+        />
+      </div>
+    );
+  } else if (videos.length > 0) {
+    content = videos.map((video) => (
+      <ThumbnailSearch key={video.etag} item={video} related={true} />
+    ));
+  }
 
   return (
     <div className="absolute top-[90vh] left-0 w-full h-full p-4">
       <h3 className={cn("text-neutral-700 font-medium", heading.className)}>
         Related Videos
       </h3>
-      {videos.length > 0 &&
-        videos.map((video) => (
-          <ThumbnailSearch key={video.etag} item={video} related={true} />
-        ))}
+      {content}
     </div>
   );
 };
