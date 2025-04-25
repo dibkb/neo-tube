@@ -39,7 +39,7 @@ const ThumbnailSearch = ({
       <Image
         src={item.snippet.thumbnails.medium.url}
         alt={item.snippet.title}
-        className="rounded-xl h-full w-full"
+        className="rounded-xl h-full w-full sm:max-h-[400px] sm:max-w-[200px]"
         width={width}
         height={height}
       />

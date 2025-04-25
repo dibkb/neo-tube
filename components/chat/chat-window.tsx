@@ -242,7 +242,7 @@ const ChatWindow = ({ videoId }: { videoId: string }) => {
     );
   }
   return (
-    <section className="absolute top-0 left-0 w-full h-full max-h-[90vh] rounded-xl p-4 bg-neutral-50">
+    <section className="w-full h-full max-h-[90vh] rounded-xl p-4 bg-neutral-50 relative">
       {content}
     </section>
   );

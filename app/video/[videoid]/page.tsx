@@ -1,5 +1,6 @@
 import ChatWindow from "@/components/chat/chat-window";
 import RelatedVideos from "@/components/search/realated-videos";
+import WarningIcon from "@/components/svg/warning-icon";
 import { CommentSection } from "@/components/youtube-player/comment-section";
 import Player from "@/components/youtube-player/player";
 import { VideoContent } from "@/components/youtube-player/video-content";
@@ -31,20 +32,29 @@ export default async function VideoPage({
 
     // Calculate response time
   } catch (error) {
-    console.error("Error fetching video data:", error);
+    console.log("Error fetching video data:", error);
   }
   const comentSection = (
     <section className="flex flex-col gap-4">
       <h2 className={cn("text-neutral-700 font-medium", heading.className)}>
         Comments
       </h2>
-      {commentData && <CommentSection commentData={commentData} />}
+      {commentData ? (
+        <CommentSection commentData={commentData} />
+      ) : (
+        <div className="flex flex-col items-center justify-center h-full">
+          <p className="text-neutral-700 font-semibold flex items-center gap-2">
+            <WarningIcon className="w-4 h-4" /> No comments found for this video
+            or some error occurred
+          </p>
+        </div>
+      )}
     </section>
   );
 
   return (
     <main className="w-full h-full grid grid-cols-12 gap-4">
-      <section className="video-primary-content col-span-12 md:col-span-8">
+      <section className="video-primary-content col-span-12 md:col-span-8 px-2 sm:px-0">
         <Player videoId={videoid} />
 
         <section className="flex flex-col gap-4">
@@ -52,7 +62,7 @@ export default async function VideoPage({
           {comentSection}
         </section>
       </section>
-      <aside className="video-secondary-content col-span-12 md:col-span-4 relative w-full h-full">
+      <aside className="video-secondary-content col-span-12 md:col-span-4 w-full h-full">
         <ChatWindow videoId={videoid} />
         <RelatedVideos videoId={videoid} />
       </aside>

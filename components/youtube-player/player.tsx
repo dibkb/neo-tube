@@ -75,7 +75,7 @@ export default function Player({ videoId }: { videoId: string }) {
   }, [playerRef.current]);
 
   const opts: YouTubeProps["opts"] = {
-    height: "645",
+    height: "100%",
     width: "100%",
     playerVars: {
       autoplay: 1,
@@ -95,7 +95,7 @@ export default function Player({ videoId }: { videoId: string }) {
             setCurrentTime(e.target.getCurrentTime());
           }
         }}
-        className="mb-4"
+        className="mb-4 h-[200px] sm:h-[400px] md:h-[400px] lg:h-[500px]"
       />
       <Transcript
         transcript={transcript}

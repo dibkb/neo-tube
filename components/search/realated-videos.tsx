@@ -67,7 +67,7 @@ const RelatedVideos = ({ videoId }: { videoId: string }) => {
   }
 
   return (
-    <div className="absolute top-[90vh] left-0 w-full h-full p-4">
+    <div className="p-4">
       <h3 className={cn("text-neutral-700 font-medium", heading.className)}>
         Related Videos
       </h3>
