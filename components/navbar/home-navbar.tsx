@@ -3,7 +3,6 @@ import Link from "next/link";
 import React, { useCallback, useState, useTransition } from "react";
 import YoutubeIcon from "../svg/youtube";
 import { Input } from "../ui/input";
-import { Avatar, AvatarFallback, AvatarImage } from "../ui/avatar";
 import { X } from "lucide-react";
 import { useRouter } from "next/navigation";
 import { cn } from "@/lib/utils";
@@ -42,7 +41,6 @@ const HomeNavbar = () => {
         } else {
           router.push(`/search/${searchQuery}`);
         }
-
         setSearchQuery("");
       });
     },
@@ -64,7 +62,7 @@ const HomeNavbar = () => {
             <YoutubeIcon />
             <span
               className={cn(
-                "text-lg font-medium text-stone-700",
+                "text-lg font-medium text-stone-700 hidden sm:flex",
                 heading.className
               )}
             >
@@ -97,14 +95,6 @@ const HomeNavbar = () => {
               </button>
             )}
           </form>
-
-          <Avatar>
-            <AvatarImage
-              src="https://github.com/shadcn.png"
-              alt="User profile"
-            />
-            <AvatarFallback>CN</AvatarFallback>
-          </Avatar>
         </div>
       </header>
     </>

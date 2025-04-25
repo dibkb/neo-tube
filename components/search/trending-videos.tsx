@@ -27,11 +27,11 @@ export default function TrendingVideos({
         className="col-span-1 flex flex-col gap-4 p-2 rounded-xl hover:bg-neutral-200 cursor-pointer transition-all duration-300 my-4"
       >
         <Image
-          src={item.snippet.thumbnails.high.url}
+          src={item.snippet.thumbnails.medium.url}
           alt={item.snippet.title}
           className="rounded-xl w-full h-full"
-          width={item.snippet.thumbnails.high.width}
-          height={item.snippet.thumbnails.high.height - 100}
+          width={item.snippet.thumbnails.medium.width}
+          height={item.snippet.thumbnails.medium.height}
         />
         <div className="flex-1 flex flex-col gap-2">
           <h4 className={cn("font-semibold text-sm")}>{item.snippet.title}</h4>

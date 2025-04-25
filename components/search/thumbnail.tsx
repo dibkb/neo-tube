@@ -34,12 +34,12 @@ const ThumbnailSearch = ({
           router.push(`/video/${item.id.videoId}`);
         });
       }}
-      className="flex gap-4 p-2 rounded-xl hover:bg-neutral-200 cursor-pointer transition-all duration-300"
+      className="flex flex-col md:flex-row gap-4 p-2 rounded-xl hover:bg-neutral-200 cursor-pointer transition-all duration-300"
     >
       <Image
         src={item.snippet.thumbnails.medium.url}
         alt={item.snippet.title}
-        className="rounded-xl h-min w-min"
+        className="rounded-xl h-full w-full"
         width={width}
         height={height}
       />
