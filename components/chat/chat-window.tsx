@@ -160,7 +160,7 @@ const ChatWindow = ({ videoId }: { videoId: string }) => {
       <>
         <div
           ref={chatContainerRef}
-          className="flex flex-col gap-3 overflow-y-auto pb-16 max-h-[calc(90vh-80px)]"
+          className="flex flex-col gap-3 overflow-y-auto pb-16 max-h-full"
         >
           {messages.length === 0 ? (
             <p className="text-center text-sm font-medium italic text-neutral-500 my-8">
@@ -242,7 +242,7 @@ const ChatWindow = ({ videoId }: { videoId: string }) => {
     );
   }
   return (
-    <section className="w-full h-full max-h-[90vh] rounded-xl p-4 bg-neutral-50 relative">
+    <section className="w-full h-full max-h-[400px] sm:max-h-[600px] lg:max-h-[90vh] rounded-xl bg-neutral-50 relative py-2">
       {content}
     </section>
   );
