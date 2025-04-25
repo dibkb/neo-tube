@@ -2,7 +2,11 @@
 import { useEffect, useState, useRef, useCallback } from "react";
 import YouTube, { YouTubeProps, YouTubePlayer } from "react-youtube";
 import Transcript from "./transcript";
-import { TranscriptItem } from "@/lib/schemas/transcript";
+import {
+  TranscriptItem,
+  transcriptItemArraySchema,
+} from "@/lib/schemas/transcript";
+import { chatApi } from "@/lib/base-url";
 // import api from "@/lib/base-url"; // Uncomment when implementing real API calls
 
 export default function Player({ videoId }: { videoId: string }) {
@@ -15,56 +19,20 @@ export default function Player({ videoId }: { videoId: string }) {
   const fetchTranscript = useCallback(async () => {
     try {
       setIsLoading(true);
-      setTimeout(() => {
-        const simulatedTranscript = [
-          { text: "Welcome to this video!", startTime: 0, endTime: 3 },
-          {
-            text: "Today we'll be discussing important topics.",
-            startTime: 3,
-            endTime: 7,
-          },
-          { text: "Let's dive right into it.", startTime: 7, endTime: 10 },
-          {
-            text: "This is a key point to remember.",
-            startTime: 10,
-            endTime: 15,
-          },
-          {
-            text: "Here's another important concept.",
-            startTime: 15,
-            endTime: 20,
-          },
-          {
-            text: "Let me show you how this works.",
-            startTime: 20,
-            endTime: 25,
-          },
-          {
-            text: "You can see the results right here.",
-            startTime: 25,
-            endTime: 30,
-          },
-          { text: "That's all for today's video.", startTime: 30, endTime: 35 },
-          { text: "Thanks for watching!", startTime: 35, endTime: 40 },
-          { text: "Thanks for watching!", startTime: 40, endTime: 45 },
-          { text: "Thanks for watching!", startTime: 45, endTime: 50 },
-          { text: "Thanks for watching!", startTime: 50, endTime: 55 },
-          { text: "Thanks for watching!", startTime: 55, endTime: 60 },
-          { text: "Thanks for watching!", startTime: 60, endTime: 65 },
-          { text: "Thanks for watching!", startTime: 65, endTime: 70 },
-          { text: "Thanks for watching!", startTime: 70, endTime: 75 },
-          { text: "Thanks for watching!", startTime: 75, endTime: 80 },
-          { text: "Thanks for watching!", startTime: 80, endTime: 85 },
-          { text: "Thanks for watching!", startTime: 85, endTime: 90 },
-        ];
-        setTranscript(simulatedTranscript);
-        setIsLoading(false);
-      }, 1000);
+      const response = await chatApi.get(
+        `generate-transcript?videoId=${videoId}`
+      );
+      const data = await response.data;
+      const transcript = transcriptItemArraySchema.safeParse(data.transcript);
+      if (transcript.success) {
+        setTranscript(transcript.data);
+      }
+      setIsLoading(false);
     } catch (error) {
       console.error("Error fetching transcript:", error);
       setIsLoading(false);
     }
-  }, []);
+  }, [videoId]);
 
   useEffect(() => {
     fetchTranscript();

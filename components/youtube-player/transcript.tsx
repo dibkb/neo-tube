@@ -19,11 +19,17 @@ const Transcript = ({
 }: TranscriptProps) => {
   const [activeItem, setActiveItem] = useState<TranscriptItem | null>(null);
   useEffect(() => {
-    const item = transcript.find(
-      (item) => currentTime >= item.startTime && currentTime < item.endTime
+    const itemIndex = transcript.findIndex(
+      (item) =>
+        currentTime >= parseFloat(item.start) &&
+        currentTime < parseFloat(item.start) + parseFloat(item.dur)
     );
-    if (item) {
-      setActiveItem(item);
+    if (itemIndex !== -1) {
+      setActiveItem(
+        itemIndex !== transcript.length - 1
+          ? transcript[itemIndex + 1]
+          : transcript[itemIndex]
+      );
     }
   }, [currentTime, transcript]);
   let content = null;
@@ -53,17 +59,23 @@ const Transcript = ({
           onClick={() => {
             window.dispatchEvent(
               new CustomEvent("seekVideo", {
-                detail: { time: activeItem?.startTime },
+                detail: { time: activeItem?.start },
               })
             );
           }}
         >
           <div className="flex justify-between text-blue-600">
-            <span className="text-sm font-semibold italic">
-              &quot;{activeItem?.text}&quot;
-            </span>
+            {activeItem ? (
+              <p className="text-sm font-semibold italic">
+                &quot;{activeItem?.text}&quot;
+              </p>
+            ) : (
+              <p className="text-sm font-semibold italic">
+                👑 Our Lordship has fetched the transcript just for you{" "}
+              </p>
+            )}
             <span className="text-xs">
-              {formatTime(activeItem?.startTime || 0)}
+              {formatTime(parseFloat(activeItem?.start || "0"))}
             </span>
           </div>
         </div>

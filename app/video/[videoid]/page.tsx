@@ -43,7 +43,7 @@ export default async function VideoPage({
 
   return (
     <main className="w-full h-full grid grid-cols-12 gap-4">
-      <section className="video-primary-content col-span-12 md:col-span-9">
+      <section className="video-primary-content col-span-12 md:col-span-8">
         <Player videoId={videoid} />
 
         <section className="flex flex-col gap-4">
@@ -51,7 +51,7 @@ export default async function VideoPage({
           {comentSection}
         </section>
       </section>
-      <aside className="video-secondary-content col-span-12 md:col-span-3 relative w-full h-full">
+      <aside className="video-secondary-content col-span-12 md:col-span-4 relative w-full h-full">
         <ChatWindow videoId={videoid} />
       </aside>
     </main>
