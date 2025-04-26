@@ -9,7 +9,7 @@ const manrope = Manrope({
 });
 
 export const metadata: Metadata = {
-  title: "NeoTube",
+  title: "BorTube",
   description: "YouTube on steroids 💪",
 };
 

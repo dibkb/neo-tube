@@ -1,5 +1,4 @@
 "use client";
-import Link from "next/link";
 import React, { useCallback, useState, useTransition } from "react";
 import YoutubeIcon from "../svg/youtube";
 import { Input } from "../ui/input";
@@ -54,8 +53,12 @@ const HomeNavbar = () => {
     <>
       <header className="border-b border-border py-4 fixed top-0 left-0 right-0 z-50 h-16 backdrop-blur-3xl bg-neutral-100/50">
         <div className="mx-auto container flex items-center justify-between">
-          <Link
-            href="/"
+          <nav
+            onClick={() => {
+              startTransition(() => {
+                router.push("/");
+              });
+            }}
             className="flex items-center gap-1"
             aria-label="NeoTube Home"
           >
@@ -68,7 +71,7 @@ const HomeNavbar = () => {
             >
               BroTube
             </span>
-          </Link>
+          </nav>
 
           <form
             className="w-full max-w-md flex items-center relative"
