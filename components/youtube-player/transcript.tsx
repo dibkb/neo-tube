@@ -64,8 +64,8 @@ const Transcript = ({
         >
           <div className="flex justify-between text-blue-600">
             {activeItem ? (
-              <p className="text-sm font-semibold italic">
-                &quot;{activeItem?.text}&quot;
+              <p className="text-sm font-semibold">
+                {decodeHtmlEntities(activeItem?.text)}
               </p>
             ) : (
               <p className="text-sm font-semibold">
@@ -102,3 +102,9 @@ function formatTime(seconds: number): string {
 }
 
 export default Transcript;
+
+export function decodeHtmlEntities(html: string): string {
+  const textarea = document.createElement("textarea");
+  textarea.innerHTML = html;
+  return textarea.value;
+}

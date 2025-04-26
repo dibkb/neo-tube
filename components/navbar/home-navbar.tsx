@@ -59,7 +59,7 @@ const HomeNavbar = () => {
                 router.push("/");
               });
             }}
-            className="flex items-center gap-1"
+            className="flex items-center gap-1 cursor-pointer"
             aria-label="NeoTube Home"
           >
             <YoutubeIcon />
