@@ -20,9 +20,7 @@ const Transcript = ({
   const [activeItem, setActiveItem] = useState<TranscriptItem | null>(null);
   useEffect(() => {
     const itemIndex = transcript.findIndex(
-      (item) =>
-        currentTime >= parseFloat(item.start) &&
-        currentTime < parseFloat(item.start) + parseFloat(item.dur)
+      (item) => currentTime >= item.start && currentTime < item.start + item.dur
     );
     if (itemIndex !== -1) {
       setActiveItem(
@@ -75,7 +73,7 @@ const Transcript = ({
               </p>
             )}
             <span className="text-xs">
-              {formatTime(parseFloat(activeItem?.start || "0"))}
+              {activeItem?.start ? formatTime(activeItem?.start) : "00:00"}
             </span>
           </div>
         </div>
