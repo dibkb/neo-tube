@@ -9,8 +9,8 @@ const manrope = Manrope({
 });
 
 export const metadata: Metadata = {
-  title: "BorTube",
-  description: "YouTube on steroids 💪",
+  title: "BroTube",
+  description: "YouTube on steroids. 💪",
 };
 
 export default function RootLayout({
