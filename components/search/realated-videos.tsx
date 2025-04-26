@@ -10,18 +10,19 @@ import { cn } from "@/lib/utils";
 import React, { useEffect, useState } from "react";
 import ThumbnailSearch from "./thumbnail";
 import { CircleAlert, Loader2 } from "lucide-react";
-const RelatedVideos = ({ videoId }: { videoId: string }) => {
+const RelatedVideos = ({ title }: { title: string }) => {
   const [loading, setLoading] = useState(true);
   const [videos, setVideos] = useState<YoutubeSearchResult[]>([]);
   const [error, setError] = useState<string | null>(null);
-
+  console.log(title);
+  console.log(decodeURIComponent(title).substring(0, 20));
   useEffect(() => {
     (async () => {
       setLoading(true);
       try {
         const response = await api.get(`/videos/search-related`, {
           params: {
-            videoId: videoId,
+            title: decodeURIComponent(title).substring(0, 20),
             maxResults: 10,
           },
         });
@@ -37,7 +38,7 @@ const RelatedVideos = ({ videoId }: { videoId: string }) => {
         setLoading(false);
       }
     })();
-  }, [videoId]);
+  }, [title]);
   let content = null;
   if (loading) {
     content = (

@@ -47,7 +47,7 @@ export default async function VideoPage({
       </section>
       <aside className="video-secondary-content col-span-12 md:col-span-4 w-full h-full">
         <ChatWindow videoId={videoid} />
-        <RelatedVideos videoId={videoid} />
+        <RelatedVideos title={data?.snippet.title || videoid} />
       </aside>
     </main>
   );
