@@ -14,8 +14,6 @@ const RelatedVideos = ({ title }: { title: string }) => {
   const [loading, setLoading] = useState(true);
   const [videos, setVideos] = useState<YoutubeSearchResult[]>([]);
   const [error, setError] = useState<string | null>(null);
-  console.log(title);
-  console.log(decodeURIComponent(title).substring(0, 20));
   useEffect(() => {
     (async () => {
       setLoading(true);
