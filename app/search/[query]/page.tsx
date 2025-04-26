@@ -6,9 +6,9 @@ import { youtubeSearchResultSchema } from "@/lib/schemas/youtubeSearch";
 export default async function SearchPage({
   params,
 }: {
-  params: { query: string };
+  params: Promise<{ query: string }>;
 }) {
-  const { query } = params;
+  const { query } = await params;
   try {
     const response = await api.post(`/videos/search?query=${query}`);
     const result = response.data;

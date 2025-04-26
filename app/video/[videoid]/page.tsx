@@ -23,7 +23,7 @@ import React from "react";
 export default async function VideoPage({
   params,
 }: {
-  params: { videoid: string };
+  params: Promise<{ videoid: string }>;
 }) {
   const { videoid } = await params;
   let data: YoutubeVideo | null = null;
